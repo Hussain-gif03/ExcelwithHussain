@@ -1,12 +1,32 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { GraduationCap, BookOpen, Award, TrendingUp, CheckCircle, Users } from 'lucide-react';
 import { useAuth } from '@/components/auth/AuthProvider';
+import { profilesApi } from '@/db/api';
 
 export default function Home() {
   const { user } = useAuth();
+  const [enrolledCount, setEnrolledCount] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEnrollmentCount = async () => {
+      try {
+        const profiles = await profilesApi.getAllProfiles();
+        setEnrolledCount(profiles.length);
+      } catch (error) {
+        console.error('Error fetching enrollment count:', error);
+        setEnrolledCount(0);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchEnrollmentCount();
+  }, []);
 
   const features = [
     {
@@ -97,6 +117,22 @@ export default function Home() {
                   </Button>
                 </>
               )}
+            </div>
+            
+            <div className="mt-12 flex items-center justify-center gap-3 text-primary-foreground/90">
+              <div className="flex items-center gap-2 px-6 py-3 bg-primary-foreground/10 backdrop-blur-sm rounded-full border border-primary-foreground/20">
+                <Users className="h-5 w-5" />
+                <span className="text-lg font-semibold">
+                  {isLoading ? (
+                    <span className="inline-block w-16 h-6 bg-primary-foreground/20 animate-pulse rounded" />
+                  ) : (
+                    <span className="tabular-nums">{enrolledCount.toLocaleString()}</span>
+                  )}
+                </span>
+                <span className="text-base">
+                  {enrolledCount === 1 ? 'member enrolled' : 'members enrolled'}
+                </span>
+              </div>
             </div>
           </div>
         </div>

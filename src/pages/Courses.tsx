@@ -4,20 +4,26 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { coursesApi, modulesApi } from '@/db/api';
+import { coursesApi, modulesApi, profilesApi } from '@/db/api';
 import type { Course, Module } from '@/types/types';
-import { BookOpen, ChevronRight } from 'lucide-react';
+import { BookOpen, ChevronRight, Users } from 'lucide-react';
 
 export default function Courses() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [modulesByCourse, setModulesByCourse] = useState<Record<string, Module[]>>({});
+  const [enrolledCount, setEnrolledCount] = useState<number>(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const coursesData = await coursesApi.getAllCourses();
+        const [coursesData, profilesData] = await Promise.all([
+          coursesApi.getAllCourses(),
+          profilesApi.getAllProfiles()
+        ]);
+        
         setCourses(coursesData);
+        setEnrolledCount(profilesData.length);
 
         const modulesData: Record<string, Module[]> = {};
         for (const course of coursesData) {
@@ -89,7 +95,16 @@ export default function Courses() {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="mb-12">
-        <h1 className="text-4xl font-bold mb-4">Excel Courses</h1>
+        <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4 mb-4">
+          <h1 className="text-4xl font-bold">Excel Courses</h1>
+          <div className="flex items-center gap-2 px-4 py-2 bg-muted rounded-full border">
+            <Users className="h-5 w-5 text-primary" />
+            <span className="text-lg font-semibold tabular-nums">{enrolledCount.toLocaleString()}</span>
+            <span className="text-sm text-muted-foreground">
+              {enrolledCount === 1 ? 'member enrolled' : 'members enrolled'}
+            </span>
+          </div>
+        </div>
         <p className="text-lg text-muted-foreground max-w-3xl">
           Master Microsoft Excel through our comprehensive three-level curriculum. 
           Each course contains multiple modules with lessons, practice exercises, and quizzes.

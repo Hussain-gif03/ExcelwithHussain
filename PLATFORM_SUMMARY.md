@@ -30,6 +30,7 @@ A comprehensive, production-ready online learning platform for teaching Microsof
 - **Content Overview**: Monitor courses, modules, lessons
 - **Analytics**: Track student progress and quiz performance
 - **Statistics**: Total users, courses, modules at a glance
+- **Live Enrollment Counter**: Real-time member count display
 
 ## 📖 Course Content
 
@@ -229,6 +230,8 @@ Students who complete this program will be able to:
 6. **Modern Design**: Beautiful, professional interface
 7. **Mobile Friendly**: Learn anywhere, any device
 8. **No Setup Required**: Students just register and start learning
+9. **Live Enrollment Counter**: Real-time display of total members enrolled
+10. **Social Proof**: Visible member count on home and courses pages
 
 ---
 
