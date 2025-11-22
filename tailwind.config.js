@@ -33,7 +33,8 @@ export default {
                 foreground: 'hsl(var(--foreground))',
                 primary: {
                     DEFAULT: 'hsl(var(--primary))',
-                    foreground: 'hsl(var(--primary-foreground))'
+                    foreground: 'hsl(var(--primary-foreground))',
+                    light: 'hsl(var(--primary-light))'
                 },
                 secondary: {
                     DEFAULT: 'hsl(var(--secondary))',
@@ -51,6 +52,10 @@ export default {
                     DEFAULT: 'hsl(var(--accent))',
                     foreground: 'hsl(var(--accent-foreground))'
                 },
+                success: {
+                    DEFAULT: 'hsl(var(--success))',
+                    foreground: 'hsl(var(--success-foreground))'
+                },
                 popover: {
                     DEFAULT: 'hsl(var(--popover))',
                     foreground: 'hsl(var(--popover-foreground))'
@@ -67,7 +72,7 @@ export default {
                 warning: 'hsl(var(--warning))',
                 info: 'hsl(var(--info))',
                 sidebar: {
-                    DEFAULT: 'hsl(var(--sidebar-background))',
+                    DEFAULT: 'hsl(var(--sidebar))',
                     foreground: 'hsl(var(--sidebar-foreground))',
                     primary: 'hsl(var(--sidebar-primary))',
                     'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
@@ -91,12 +96,11 @@ export default {
             },
             backgroundImage: {
                 'gradient-primary': 'var(--gradient-primary)',
-                'gradient-card': 'var(--gradient-card)',
-                'gradient-background': 'var(--gradient-background)'
+                'gradient-accent': 'var(--gradient-accent)'
             },
             boxShadow: {
                 card: 'var(--shadow-card)',
-                hover: 'var(--shadow-hover)'
+                elegant: 'var(--shadow-elegant)'
             },
             keyframes: {
                 'accordion-down': {
