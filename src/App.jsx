@@ -687,7 +687,7 @@ const App = () => {
               </div>
 
               <div className="mb-8 md:mb-0">
-                 <Award size={120} className="text-yellow-500 drop-shadow-lg" />
+                 <Award size={520} className="text-yellow-500 drop-shadow-lg" />
               </div>
 
               <div className="text-center">
