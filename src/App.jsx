@@ -619,7 +619,6 @@ const App = () => {
       </div>
     </div>
   );
-
   const CertificateView = () => {
     // Validation: Name must be at least 3 characters and not just spaces
     const isValidName = userName.trim().length >= 3;
@@ -759,5 +758,4 @@ const App = () => {
     </div>
   );
 };
-
 export default App;
