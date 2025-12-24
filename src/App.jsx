@@ -619,143 +619,108 @@ const App = () => {
       </div>
     </div>
   );
-  const CertificateView = () => {
-    // Validation: Name must be at least 3 characters and not just spaces
-    const isValidName = userName.trim().length >= 3;
+const CertificateView = () => (
+    <div className="min-h-screen bg-gray-100 py-16 px-4 flex items-center justify-center">
+      {!userName ? (
+        <div className="bg-white p-10 rounded-2xl shadow-xl max-w-md w-full text-center transform transition-all hover:scale-105">
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-green-600">
+            <Award size={40} />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Course Completed!</h2>
+          <p className="text-gray-500 mb-8">You've mastered the curriculum. Enter your name to claim your official certificate.</p>
+          <div className="space-y-4">
+            <input 
+              type="text" 
+              placeholder="Enter your full name" 
+              className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+            />
+            <button 
+              disabled={!userName}
+              onClick={() => setUserName(userName)}
+              className="w-full text-white py-4 rounded-lg font-bold shadow-lg disabled:bg-gray-300 disabled:cursor-not-allowed transition-all"
+              style={{ backgroundColor: THEME.colors.primary }}
+            >
+              Generate Certificate
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="max-w-5xl w-full bg-white p-2 shadow-2xl">
+          <div className="border-8 border-double border-gray-800 p-12 text-center relative h-full flex flex-col justify-between" style={{ minHeight: '600px' }}>
+            
+            {/* Watermark */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+              <FileSpreadsheet size={400} />
+            </div>
 
-    const handleGenerate = () => {
-      if (isValidName) {
-        setIsGenerated(true);
-      }
-    };
+            {/* Header */}
+            <div className="relative z-10">
+              <div className="flex items-center justify-center gap-3 text-green-800 mb-4">
+                 <FileSpreadsheet size={32} />
+                 <span className="font-bold text-xl uppercase tracking-widest">Excel with Hussain</span>
+              </div>
+              <h1 className="text-5xl md:text-6xl font-serif font-bold text-gray-900 mb-4">Certificate of Completion</h1>
+              <div className="w-24 h-1 bg-yellow-500 mx-auto"></div>
+            </div>
 
-    return (
-      <div className="min-h-screen bg-gray-100 py-16 px-4 flex items-center justify-center">
-        {!isGenerated ? (
-          /* INPUT STATE */
-          <div className="bg-white p-10 rounded-2xl shadow-xl max-w-md w-full text-center transform transition-all hover:scale-105">
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-green-600">
-              <Award size={40} />
-            </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Course Completed!</h2>
-            <p className="text-gray-500 mb-8">You've mastered the curriculum. Enter your full name to claim your official certificate.</p>
-            
-            <div className="space-y-4">
-              <input 
-                type="text" 
-                placeholder="Enter your full name" 
-                className={`w-full p-4 border rounded-lg outline-none transition-all ${
-                  userName.length > 0 && !isValidName 
-                  ? 'border-red-500 ring-1 ring-red-500' 
-                  : 'border-gray-300 focus:ring-2 focus:ring-green-500'
-                }`}
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-              />
-              
-              {userName.length > 0 && !isValidName && (
-                <p className="text-red-500 text-sm text-left italic">
-                  * Please enter at least 3 characters
-                </p>
-              )}
+            {/* Body */}
+            <div className="relative z-10 my-12">
+              <p className="text-xl text-gray-500 italic mb-6">This is to certify that</p>
+              <h2 className="text-5xl md:text-6xl font-bold text-green-900 font-serif mb-8 p-4 border-b border-gray-200 inline-block min-w-[50%]">
+                {userName}
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Has successfully completed the <span className="font-bold text-gray-900">Excel Mastery Course</span>, 
+                demonstrating proficiency in data management, formulas, pivot tables, and macros.
+              </p>
+            </div>
 
-              <button 
-                disabled={!isValidName}
-                onClick={handleGenerate}
-                className="w-full text-white py-4 rounded-lg font-bold shadow-lg disabled:bg-gray-300 disabled:shadow-none disabled:cursor-not-allowed transition-all"
-                style={{ backgroundColor: isValidName ? THEME.colors.primary : '#d1d5db' }}
-              >
-                Generate Certificate
-              </button>
-            </div>
-          </div>
-        ) : (
-          /* CERTIFICATE DISPLAY STATE */
-          <div className="max-w-5xl w-full bg-white p-2 shadow-2xl print:shadow-none print:p-0">
-            <div className="border-8 border-double border-gray-800 p-12 text-center relative h-full flex flex-col justify-between" style={{ minHeight: '600px' }}>
-              
-              {/* Watermark */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
-                <FileSpreadsheet size={400} />
-              </div>
+            {/* Footer */}
+            <div className="relative z-10 flex flex-col md:flex-row justify-between items-end mt-12 px-12">
+              <div className="text-center mb-8 md:mb-0">
+                <div className="w-64 border-b-2 border-gray-800 mb-2"></div>
+                <p className="text-xl font-bold text-gray-900">Mohammed Hussain</p>
+                <p className="text-sm text-gray-500 uppercase tracking-wider">Lead Instructor</p>
+              </div>
 
-              {/* Header */}
-              <div className="relative z-10">
-                <div className="flex items-center justify-center gap-3 text-green-800 mb-4">
-                   <FileSpreadsheet size={32} />
-                   <span className="font-bold text-xl uppercase tracking-widest">Excel with Hussain</span>
-                </div>
-                <h1 className="text-5xl md:text-6xl font-serif font-bold text-gray-900 mb-4">Certificate of Completion</h1>
-                <div className="w-24 h-1 bg-yellow-500 mx-auto"></div>
-              </div>
+              <div className="mb-8 md:mb-0">
+                 <Award size={120} className="text-yellow-500 drop-shadow-lg" />
+              </div>
 
-              {/* Body */}
-              <div className="relative z-10 my-12">
-                <p className="text-xl text-gray-500 italic mb-6">This is to certify that</p>
-                <h2 className="text-5xl md:text-6xl font-bold text-green-900 font-serif mb-8 p-4 border-b border-gray-200 inline-block min-w-[50%]">
-                  {userName}
-                </h2>
-                <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                  Has successfully completed the <span className="font-bold text-gray-900">Excel Mastery Course</span>, 
-                  demonstrating proficiency in data management, formulas, pivot tables, and macros.
-                </p>
-              </div>
+              <div className="text-center">
+                <p className="text-xl font-bold text-gray-900">{new Date().toLocaleDateString()}</p>
+                <div className="w-64 border-b-2 border-gray-800 mt-2 mb-2"></div>
+                <p className="text-sm text-gray-500 uppercase tracking-wider">Date Issued</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-8 text-center no-print pb-8">
+             <p className="text-gray-500 text-sm mb-4">Use your browser's print function to save as PDF</p>
+            <button 
+              onClick={() => window.print()} 
+              className="px-8 py-3 rounded-full font-bold text-white shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1"
+              style={{ backgroundColor: THEME.colors.secondary }}
+            >
+              Download / Print Certificate
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 
-              {/* Footer */}
-              <div className="relative z-10 flex flex-col md:flex-row justify-between items-end mt-12 px-12">
-                <div className="text-center mb-8 md:mb-0">
-                  <div className="w-64 border-b-2 border-gray-800 mb-2"></div>
-                  <p className="text-xl font-bold text-gray-900">Mohammed Hussain</p>
-                  <p className="text-sm text-gray-500 uppercase tracking-wider">Lead Instructor</p>
-                </div>
-
-                <div className="mb-8 md:mb-0">
-                   <Award size={120} className="text-yellow-500 drop-shadow-lg" />
-                </div>
-
-                <div className="text-center">
-                  <p className="text-xl font-bold text-gray-900">{new Date().toLocaleDateString()}</p>
-                  <div className="w-64 border-b-2 border-gray-800 mt-2 mb-2"></div>
-                  <p className="text-sm text-gray-500 uppercase tracking-wider">Date Issued</p>
-                </div>
-              </div>
-            </div>
-            
-            {/* Actions (Hidden during print) */}
-            <div className="mt-8 text-center print:hidden pb-8">
-               <p className="text-gray-500 text-sm mb-4">Use your browser's print function to save as PDF</p>
-               <div className="flex justify-center gap-4">
-                <button 
-                  onClick={() => setIsGenerated(false)} 
-                  className="px-8 py-3 rounded-full font-bold border-2 border-gray-300 text-gray-600 hover:bg-gray-50 transition-all"
-                >
-                  Edit Name
-                </button>
-                <button 
-                  onClick={() => window.print()} 
-                  className="px-8 py-3 rounded-full font-bold text-white shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1"
-                  style={{ backgroundColor: THEME.colors.secondary }}
-                >
-                  Download / Print Certificate
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  return (
-    <div className="font-sans text-gray-800 bg-gray-50 min-h-screen selection:bg-teal-100 selection:text-teal-900">
-      {/* You should add a 'print:hidden' class to your Navbar component inside its own code */}
-      <div className="print:hidden">
-        {/* <Navbar /> */}
-      </div>
-
-      {activeTab === 'certificate' && <CertificateView />}
-      {/* Add your other views here */}
-    </div>
-  );
+  return (
+    <div className="font-sans text-gray-800 bg-gray-50 min-h-screen selection:bg-teal-100 selection:text-teal-900">
+      <Navbar />
+      {activeTab === 'home' && <HomeView />}
+      {activeTab === 'learn' && <LearnView />}
+      {activeTab === 'consult' && <ConsultView />}
+      {activeTab === 'certificate' && <CertificateView />}
+    </div>
+  );
 };
+
 export default App;
